@@ -1,23 +1,25 @@
 class WeightedQuickUnionUF :
-	parent = []
-	size = []
+	_parent = []
+	_size = []
+	_count = 0
+	
 	def __init__(self, n):
-		self.count = n
-		self.parent = [i for i in range(n)]
-		self.size = [1 for _ in range(n)]
+		self._count = n
+		self._parent = [i for i in range(n)]
+		self._size = [1 for _ in range(n)]
 
 	def count(self):
-		return self.count
+		return self._count
 
 	def find(self, p):
 		self._validate(p)
-		while(p != self.parent[p]):
-			p = self.parent[p]
+		while(p != self._parent[p]):
+			p = self._parent[p]
 		return p
 
 	def _validate (self, p) :
 
-		n = len(self.parent)
+		n = len(self._parent)
 		if p < 0 or p >= n :
 			raise ValueError
 
@@ -30,18 +32,18 @@ class WeightedQuickUnionUF :
 		if (rootP == rootQ) :
 			return
 
-		if (self.size[rootP] > self.size[rootQ]) :
-			self.parent[rootQ] = rootP
-			self.size[rootP] += self.size[rootQ]
+		if (self._size[rootP] > self._size[rootQ]) :
+			self._parent[rootQ] = rootP
+			self._size[rootP] += self._size[rootQ]
 
 		else :
-			self.parent[rootP] = rootQ
-			self.size[rootQ] += self.size[rootP] 
-		self.count -= 1
+			self._parent[rootP] = rootQ
+			self._size[rootQ] += self._size[rootP] 
+		self._count -= 1
 
 
 	def get(self):
-		print(self.parent, self.size)
+		print(self._parent, self._size)
 
 
 
